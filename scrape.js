@@ -2,15 +2,14 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const cron = require("node-cron");
 const createCsvWriter = require("csv-writer").createObjectCsvWriter;
-
-const url =
-  "https://www.avaloncommunities.com/california/fremont-apartments/avalon-fremont/";
+const urls = require('./urls.js');
 
 // CSV Writer configuration
 const csvWriter = createCsvWriter({
   path: "apartment_prices.csv",
   header: [
     { id: "date", title: "DATE" },
+    { id: "name", title: "APARTMENT_NAME" },
     { id: "oneBedroomPrice", title: "1_BEDROOM_PRICE" },
     { id: "twoBedroomPrice", title: "2_BEDROOM_PRICE" },
   ],
@@ -19,25 +18,39 @@ const csvWriter = createCsvWriter({
 
 // Function to scrape prices
 const scrapePrices = async () => {
-  try {
-    const response = await axios.get(url);
-    const html = response.data;
-    const $ = cheerio.load(html);
+  const date = new Date().toISOString().split("T")[0];
+  const records = [];
 
-    // Selectors for pricing elements
-    const oneBedroomPrice = $("#pricing-1-bedroom-price").text().trim();
-    const twoBedroomPrice = $("#pricing-2-bedroom-price").text().trim();
+  for (const { url, name } of urls) {
+    try {
+      const response = await axios.get(url);
+      const html = response.data;
+      const $ = cheerio.load(html);
 
-    const date = new Date().toISOString().split("T")[0];
+      // Selectors for pricing elements
+      const oneBedroomPrice =
+        $("#pricing-1-bedroom-price").text().trim() || "N/A";
+      const twoBedroomPrice =
+        $("#pricing-2-bedroom-price").text().trim() || "N/A";
 
-    // Write data to CSV
-    await csvWriter.writeRecords([{ date, oneBedroomPrice, twoBedroomPrice }]);
+      records.push({ date, name, oneBedroomPrice, twoBedroomPrice });
 
-    console.log(`1 Bedroom Price: ${oneBedroomPrice}`);
-    console.log(`2 Bedroom Price: ${twoBedroomPrice}`);
-  } catch (error) {
-    console.error(`Error fetching the URL: ${error}`);
+      console.log(
+        `Scraped ${name} - 1 Bedroom Price: ${oneBedroomPrice}, 2 Bedroom Price: ${twoBedroomPrice}`
+      );
+    } catch (error) {
+      console.error(`Error fetching the URL for ${name}: ${error}`);
+      records.push({
+        date,
+        name,
+        oneBedroomPrice: "Error",
+        twoBedroomPrice: "Error",
+      });
+    }
   }
+
+  // Write data to CSV
+  await csvWriter.writeRecords(records);
 };
 
 // Schedule the scraper to run once a day at midnight

@@ -1,2 +1,8 @@
-date, 1br, 2br
-2024-05-20,"$2,700","$2,995"
+date, name, oneBedroomPrice, twoBedroomPrice
+2024-05-20,Avalon Fremont,"$2,700","$2,995"
+2024-05-20,Avalon Walnut Ridge,"$2,159","$2,930"
+2024-05-20,Avalon Silicon Valley,"$3,200","$3,652"
+2024-05-20,Avalon on the Alameda,"$3,003","$3,361"
+2024-05-20,Avalon Mountain View,"$3,065","$3,800"
+2024-05-20,Ava 55 Ninth,"$2,820","$3,300"
+2024-05-20,Avalon at Mission Bay,"$3,080","$4,305"

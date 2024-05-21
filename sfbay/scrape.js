@@ -28,15 +28,22 @@ const scrapePrices = async () => {
         create: { name, owner: urls.owner },
       });
 
-      // Insert price
-      await prisma.price.create({
-        data: {
-          date,
-          oneBedroom: oneBedroomPrice,
-          twoBedroom: twoBedroomPrice,
-          apartment: { connect: { name: apartment.name } },
-        },
+      let price = await prisma.price.findFirst({
+        where: { apartment: { name }, date },
       });
+
+      if (!price) {
+        // Insert price
+        await prisma.price.create({
+          data: {
+            oneBedroom: oneBedroomPrice,
+            twoBedroom: twoBedroomPrice,
+            apartment: { connect: { name: apartment.name } },
+          },
+        });
+      } else {
+        throw new Error(`Price already collected on ${date}`);
+      }
 
       console.log(
         `Scraped ${name} - 1 Bedroom Price: ${oneBedroomPrice}, 2 Bedroom Price: ${twoBedroomPrice}`

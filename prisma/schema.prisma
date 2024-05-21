@@ -14,14 +14,14 @@ datasource db {
 }
 
 model Apartment {
-  id        Int    @id
-  name      String
+  id        Int    @id @default(autoincrement())
+  name      String @unique
   owner     String
   prices    Price[]
 }
 
 model Price {
-  id         Int    @id
+  id         Int    @id @default(autoincrement())
   date       DateTime
   oneBedroom String
   twoBedroom String

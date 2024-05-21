@@ -1,11 +1,13 @@
+const { PrismaClient } = require("@prisma/client");
 const axios = require("axios");
 const cheerio = require("cheerio");
 
 const urls = require("./avalonUrls.js");
-const db = require("../database.js");
+
+const prisma = new PrismaClient();
 
 const scrapePrices = async () => {
-  const date = new Date().toISOString().split("T")[0];
+  const date = new Date().toISOString();
 
   for (const { url, name } of urls.urls) {
     try {
@@ -20,44 +22,35 @@ const scrapePrices = async () => {
         $("#pricing-2-bedroom-price").text().trim() || "N/A";
 
       // Insert apartment if it doesn't exist
-      db.run(
-        `
-        INSERT OR IGNORE INTO apartments (name) VALUES (?)
-      `,
-        [name],
-        function (err) {
-          if (err) {
-            console.error(`Error inserting apartment ${name}: ${err}`);
-            return;
-          }
+      let apartment = await prisma.apartment.upsert({
+        where: { name },
+        update: { name },
+        create: { name, owner: urls.owner },
+      });
 
-          const apartmentId = this.lastID;
+      // Insert price
+      await prisma.price.create({
+        data: {
+          date,
+          oneBedroom: oneBedroomPrice,
+          twoBedroom: twoBedroomPrice,
+          apartment: { connect: { name: apartment.name } },
+        },
+      });
 
-          // Insert price
-          db.run(
-            `
-          INSERT INTO prices (apartment_id, date, oneBedroomPrice, twoBedroomPrice) 
-          VALUES (?, ?, ?, ?)
-        `,
-            [apartmentId, date, oneBedroomPrice, twoBedroomPrice],
-            function (err) {
-              if (err) {
-                console.error(`Error inserting price for ${name}: ${err}`);
-                return;
-              }
-              console.log(
-                `Scraped ${name} - 1 Bedroom Price: ${oneBedroomPrice}, 2 Bedroom Price: ${twoBedroomPrice}`
-              );
-            }
-          );
-        }
+      console.log(
+        `Scraped ${name} - 1 Bedroom Price: ${oneBedroomPrice}, 2 Bedroom Price: ${twoBedroomPrice}`
       );
     } catch (error) {
-      console.error(`Error fetching the URL for ${name}: ${error}`);
-    } finally {
-      console.log(`Scraped ${name}`);
+      console.error(`Error fetching or parsing the URL for ${name}: ${error}`);
     }
   }
 };
 
-scrapePrices();
+scrapePrices()
+  .catch((error) => {
+    console.error("Error scraping prices:", error);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

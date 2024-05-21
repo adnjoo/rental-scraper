@@ -10,7 +10,7 @@ CREATE TABLE "Apartment" (
 -- CreateTable
 CREATE TABLE "Price" (
     "id" SERIAL NOT NULL,
-    "date" TIMESTAMP(3) NOT NULL,
+    "date" DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "oneBedroom" TEXT NOT NULL,
     "twoBedroom" TEXT NOT NULL,
     "apartmentId" INTEGER NOT NULL,

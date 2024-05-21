@@ -6,10 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon ./index.js",
-    "scrape-sf-ava": "node ./sfbay/scrape.js",
-    "cron": "node ./cron/cron.js",
-    "cron-test": "node ./cron/cron-example.js",
-    "test-file": "node test.js"
+    "scrape-sf-ava": "node ./sfbay/scrape.js"
   },
   "keywords": [],
   "author": "",

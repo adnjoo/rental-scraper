@@ -14,13 +14,14 @@ datasource db {
 }
 
 model Apartment {
-  id     String  @id @default(uuid())
-  name   String  @unique
-  owner  String
-  prices Price[]
-  area   String?
-  locale String?
-  state  String?
+  id         String      @id @default(uuid())
+  name       String      @unique
+  owner      String
+  prices     Price[]
+  area       String?
+  locale     String?
+  state      String?
+  floorplans Floorplan[]
 }
 
 model Price {
@@ -28,6 +29,17 @@ model Price {
   date        DateTime  @default(now()) @db.Date
   oneBedroom  String
   twoBedroom  String?
+  apartment   Apartment @relation(fields: [apartmentId], references: [id])
+  apartmentId String
+}
+
+model Floorplan {
+  id          String    @id @default(uuid())
+  bedrooms    Int?
+  bathrooms   Int?
+  name        String?
+  description String?
+  sqft        Int?
   apartment   Apartment @relation(fields: [apartmentId], references: [id])
   apartmentId String
 }

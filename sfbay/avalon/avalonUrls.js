@@ -1,5 +1,7 @@
 const avalonUrls = {
-  owner: "Avalon Northern California",
+  owner: "AvalonBay Communities",
+  site: 'https://www.avaloncommunities.com/northern-california/',
+  location: 'SFBay',
   urls: [
     {
       url: "https://www.avaloncommunities.com/california/fremont-apartments/avalon-fremont/",

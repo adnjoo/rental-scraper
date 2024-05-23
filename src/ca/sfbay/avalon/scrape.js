@@ -9,7 +9,7 @@ const prisma = new PrismaClient();
 const scrapePrices = async () => {
   const date = new Date().toISOString();
 
-  for (const { url, name } of urls.urls) {
+  for (const { url, name, location } of urls.urls) {
     try {
       const response = await axios.get(url);
       const html = response.data;
@@ -25,7 +25,13 @@ const scrapePrices = async () => {
       let apartment = await prisma.apartment.upsert({
         where: { name },
         update: { name },
-        create: { name, owner: urls.owner },
+        create: {
+          name,
+          owner: urls.owner,
+          state: "CA",
+          locale: "SF Bay",
+          area: location,
+        },
       });
 
       let price = await prisma.price.findFirst({

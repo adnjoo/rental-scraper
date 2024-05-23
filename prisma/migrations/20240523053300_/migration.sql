@@ -3,6 +3,9 @@ CREATE TABLE "Apartment" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "owner" TEXT NOT NULL,
+    "area" TEXT,
+    "locale" TEXT,
+    "state" TEXT,
 
     CONSTRAINT "Apartment_pkey" PRIMARY KEY ("id")
 );

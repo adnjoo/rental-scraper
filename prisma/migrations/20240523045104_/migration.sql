@@ -12,7 +12,7 @@ CREATE TABLE "Price" (
     "id" SERIAL NOT NULL,
     "date" DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "oneBedroom" TEXT NOT NULL,
-    "twoBedroom" TEXT NOT NULL,
+    "twoBedroom" TEXT,
     "apartmentId" INTEGER NOT NULL,
 
     CONSTRAINT "Price_pkey" PRIMARY KEY ("id")

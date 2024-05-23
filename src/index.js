@@ -9,7 +9,10 @@ const PORT = process.env.PORT || 3000;
 app.get("/", async (req, res) => {
   try {
     const apartments = await prisma.apartment.findMany();
-    res.json(apartments);
+    res.json({
+      count: apartments.length,
+      apartments,
+    });
   } catch (error) {
     console.error("Error fetching apartments:", error);
     res.status(500).json({ error: "Internal server error" });

@@ -1,6 +1,6 @@
 -- CreateTable
 CREATE TABLE "Apartment" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "owner" TEXT NOT NULL,
 
@@ -9,11 +9,11 @@ CREATE TABLE "Apartment" (
 
 -- CreateTable
 CREATE TABLE "Price" (
-    "id" SERIAL NOT NULL,
+    "id" BIGSERIAL NOT NULL,
     "date" DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "oneBedroom" TEXT NOT NULL,
     "twoBedroom" TEXT,
-    "apartmentId" INTEGER NOT NULL,
+    "apartmentId" TEXT NOT NULL,
 
     CONSTRAINT "Price_pkey" PRIMARY KEY ("id")
 );

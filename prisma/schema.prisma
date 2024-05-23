@@ -14,17 +14,17 @@ datasource db {
 }
 
 model Apartment {
-  id        Int    @id @default(autoincrement())
+  id        String    @id @default(uuid())
   name      String @unique
   owner     String
   prices    Price[]
 }
 
 model Price {
-  id         Int    @id @default(autoincrement())
+  id         BigInt    @id @default(autoincrement())
   date       DateTime @default(now()) @db.Date
   oneBedroom String
   twoBedroom String?
   apartment    Apartment @relation(fields: [apartmentId], references: [id])
-  apartmentId  Int
+  apartmentId  String
 }

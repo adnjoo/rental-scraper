@@ -5,10 +5,17 @@ const quarterraUrls = {
     {
       url: "https://capitol650.com/floor-plans/#/plan",
       name: "Capitol 650",
+      location: "Milpitas",
     },
     {
       url: "https://liveaya.com/floor-plans/#/plan",
-      name: "Aya Fremont",
+      name: "Aya",
+      location: "Fremont",
+    },
+    {
+      url: "https://rentnovo.com/floor-plans/#/plan",
+      name: "Novo",
+      location: "Mountain View",
     },
   ],
 };

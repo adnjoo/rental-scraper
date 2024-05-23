@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon ./index.js",
-    "scrape-sf-ava": "node ./sfbay/avalon/scrape.js",
-    "scrape-sf-quarterra": "node ./sfbay/quarterra/scrape.js"
+    "scrape-sf-ava": "node ./src/ca/sfbay/avalon/scrape.js",
+    "scrape-sf-quarterra": "node ./src/ca/sfbay/quarterra/scrape.js"
   },
   "keywords": [],
   "author": "",

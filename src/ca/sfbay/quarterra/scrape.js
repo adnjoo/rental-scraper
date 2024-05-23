@@ -1,28 +1,39 @@
-const { Builder, By, until } = require('selenium-webdriver');
-const { PrismaClient } = require('@prisma/client');
+const { Builder, By, until } = require("selenium-webdriver");
+const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-const urls = require('./quarterraUrls.js');
+const urls = require("./quarterraUrls.js");
 
 const scrapePrices = async () => {
   const date = new Date().toISOString();
 
-  let driver = await new Builder().forBrowser('chrome').build();
+  let driver = await new Builder().forBrowser("chrome").build();
   try {
     for (const { url, name, location } of urls.urls) {
       await driver.get(url);
-      await driver.wait(until.elementLocated(By.css('.card__stats.coh-style-heading-5-size')), 10000);
+      await driver.wait(
+        until.elementLocated(By.css(".card__stats.coh-style-heading-5-size")),
+        10000
+      );
 
-      const oneBedroomElement = await driver.findElement(By.xpath("//ul[contains(@class, 'card__stats') and contains(@class, 'coh-style-heading-5-size')]/li[contains(text(), 'Starting at')]"));
+      const oneBedroomElement = await driver.findElement(
+        By.xpath(
+          "//ul[contains(@class, 'card__stats') and contains(@class, 'coh-style-heading-5-size')]/li[contains(text(), 'Starting at')]"
+        )
+      );
       const oneBedroomPrice = await oneBedroomElement.getText();
-
-      console.log(oneBedroomPrice);
 
       // Insert apartment if it doesn't exist
       let apartment = await prisma.apartment.upsert({
         where: { name },
         update: { name },
-        create: { name, owner: urls.owner, state: 'CA', locale: 'SF Bay', area: location },
+        create: {
+          name,
+          owner: urls.owner,
+          state: "CA",
+          locale: "SF Bay",
+          area: location,
+        },
       });
 
       let price = await prisma.price.findFirst({
@@ -34,12 +45,13 @@ const scrapePrices = async () => {
         await prisma.price.create({
           data: {
             date: new Date(date),
-            oneBedroom: oneBedroomPrice.replace('Starting at ', ''),
+            oneBedroom: oneBedroomPrice.replace("Starting at ", ""),
             apartment: { connect: { id: apartment.id } },
           },
         });
       } else {
-        throw new Error(`Price already collected on ${date}`);
+        console.log(`Price already collected on ${date}`);
+        continue;
       }
 
       console.log(`Scraped ${name} - 1 Bedroom Price: ${oneBedroomPrice}`);

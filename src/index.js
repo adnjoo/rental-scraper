@@ -8,7 +8,13 @@ const PORT = process.env.PORT || 3000;
 
 app.get("/", async (req, res) => {
   try {
-    const apartments = await prisma.apartment.findMany();
+    const apartments = await prisma.apartment.findMany({
+      select: {
+        name: true,
+        owner: true,
+        area: true,
+      },
+    });
     res.json({
       count: apartments.length,
       apartments,

@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon ./index.js",
     "scrape-sf-ava": "node ./src/ca/sfbay/avalon/scrape.js",
-    "scrape-sf-quarterra": "node ./src/ca/sfbay/quarterra/scrape.js"
+    "scrape-sf-quarterra": "node ./src/ca/sfbay/quarterra/scrape.js",
+    "count-sloc": "cd misc && node count.js"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +28,7 @@
   "devDependencies": {
     "@types/node": "^20.12.12",
     "prisma": "^5.14.0",
+    "slocjs": "^1.1.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   }

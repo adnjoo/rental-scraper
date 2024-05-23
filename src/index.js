@@ -19,6 +19,32 @@ app.get("/", async (req, res) => {
   }
 });
 
+app.get("/owners", async (req, res) => {
+  try {
+    const apartments = await prisma.apartment.findMany({
+      select: {
+        owner: true,
+        name: true,
+        area: true,
+      },
+    })
+
+    const owners = apartments.reduce((acc, apartment) => {
+      const { owner, id, name } = apartment;
+      if (!acc[owner]) {
+        acc[owner] = { owner, apartments: [] };
+      }
+      acc[owner].apartments.push({ area: apartment.area, name, id });
+      return acc;
+    }, {});
+
+    res.json(Object.values(owners));
+  } catch (error) {
+    console.error("Error fetching owners:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 app.get("/prices/:apartmentName", async (req, res) => {
   const { apartmentName } = req.params;
 

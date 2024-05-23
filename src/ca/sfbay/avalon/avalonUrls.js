@@ -24,6 +24,11 @@ const avalonUrls = {
       location: "San Jose",
     },
     {
+      url: "https://www.avaloncommunities.com/california/san-jose-apartments/eaves-west-valley",
+      name: "Eaves West Valley",
+      location: "San Jose",
+    },
+    {
       url: "https://www.avaloncommunities.com/california/mountain-view-apartments/avalon-mountain-view",
       name: "Avalon Mountain View",
       location: "Mountain View",
@@ -36,6 +41,21 @@ const avalonUrls = {
     {
       url: "https://www.avaloncommunities.com/california/san-francisco-apartments/avalon-at-mission-bay/",
       name: "Avalon at Mission Bay",
+      location: "San Francisco",
+    },
+    {
+      url: "https://www.avaloncommunities.com/california/san-francisco-apartments/ava-nob-hill/",
+      name: "Ava Nob Hill",
+      location: "San Francisco",
+    },
+    {
+      url: "https://www.avaloncommunities.com/california/san-francisco-apartments/avalon-sunset-towers/",
+      name: "Avalon Sunset Towers",
+      location: "San Francisco",
+    },
+    {
+      url: "https://www.avaloncommunities.com/california/san-francisco-apartments/avalon-hayes-valley/",
+      name: "Avalon Hayes Valley",
       location: "San Francisco",
     },
   ],

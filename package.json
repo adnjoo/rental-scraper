@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./index.js",
+    "server": "nodemon ./src/index.js",
     "scrape-sf-ava": "node ./src/ca/sfbay/avalon/scrape.js",
     "scrape-sf-quarterra": "node ./src/ca/sfbay/quarterra/scrape.js",
     "count-sloc": "cd misc && node count.js"

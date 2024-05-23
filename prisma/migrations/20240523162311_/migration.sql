@@ -12,7 +12,7 @@ CREATE TABLE "Apartment" (
 
 -- CreateTable
 CREATE TABLE "Price" (
-    "id" BIGSERIAL NOT NULL,
+    "id" SERIAL NOT NULL,
     "date" DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "oneBedroom" TEXT NOT NULL,
     "twoBedroom" TEXT,
@@ -21,8 +21,24 @@ CREATE TABLE "Price" (
     CONSTRAINT "Price_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "Floorplan" (
+    "id" TEXT NOT NULL,
+    "bedrooms" INTEGER,
+    "bathrooms" INTEGER,
+    "name" TEXT,
+    "description" TEXT,
+    "sqft" INTEGER,
+    "apartmentId" TEXT NOT NULL,
+
+    CONSTRAINT "Floorplan_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "Apartment_name_key" ON "Apartment"("name");
 
 -- AddForeignKey
 ALTER TABLE "Price" ADD CONSTRAINT "Price_apartmentId_fkey" FOREIGN KEY ("apartmentId") REFERENCES "Apartment"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Floorplan" ADD CONSTRAINT "Floorplan_apartmentId_fkey" FOREIGN KEY ("apartmentId") REFERENCES "Apartment"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

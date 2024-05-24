@@ -27,7 +27,8 @@ model Apartment {
 model Price {
   id          Int    @id @default(autoincrement())
   date        DateTime  @default(now()) @db.Date
-  oneBedroom  String
+  studio      String?
+  oneBedroom  String?
   twoBedroom  String?
   apartment   Apartment @relation(fields: [apartmentId], references: [id])
   apartmentId String

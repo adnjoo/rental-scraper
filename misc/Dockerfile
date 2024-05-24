@@ -1,3 +1,5 @@
+# Fails to build - https://github.com/adnjoo/tern/issues/16
+
 # Use the official Node.js image.
 FROM node:18.20.2
 

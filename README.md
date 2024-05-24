@@ -2,12 +2,13 @@
 
 helps renters find the best price for apartments
 
-🥞:
-• node.js
-• selenium 4.x
-• express 4.x
-• prisma 5.x
-• postgres
+🥞
+
+- node.js
+- selenium 4.x
+- express 4.x
+- prisma 5.x
+- postgres
 
 quickstart:
 

@@ -24,5 +24,4 @@ Links:
 | Prisma 5.x | ORM
 | Postgres | Database
 
-
-![Alt](https://repobeats.axiom.co/api/embed/4617145e2cb8e313bd5053f667148cba12e85909.svg "Repobeats analytics image")
+![Alt](https://repobeats.axiom.co/api/embed/1e90502f3b197abec0bfcd399b2ae06dc90c8fde.svg "Repobeats analytics image")

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import type { Apartment } from '@prisma/client';
+// import type { Apartment } from '@prisma/client';
 import {
   Card,
   CardHeader,
@@ -31,7 +31,7 @@ export async function LandingBody() {
   const data = await getData();
   return (
     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4 mx-4 my-12 lg:mx-24 lg:my-24'>
-      {data.apartments.map((apt: Apartment) => (
+      {data.apartments.map((apt: any) => (
         <ApartmentCard
           key={apt.name}
           name={apt.name}

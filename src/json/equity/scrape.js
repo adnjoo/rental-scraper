@@ -7,7 +7,7 @@ async function scrapeEquityApartments() {
   let driver = await new Builder().forBrowser('chrome').build();
 
   try {
-    // Navigate to the Equity Apartments page
+    // TODO: Add logic to scrape from e.g. https://www.equityapartments.com/los-angeles-apartments
     await driver.get('https://www.equityapartments.com/san-francisco-bay-apartments');
 
     // Wait for the community cards to be visible

@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon ./src/index.js",
+    "scrape-la-eq": "node ./src/ca/la/equity/scrape.js",
     "scrape-sf-ava": "node ./src/ca/sfbay/avalon/scrape.js",
+    "scrape-sf-eq": "node ./src/ca/sfbay/equity/scrape.js",
     "scrape-sf-quarterra": "node ./src/ca/sfbay/quarterra/scrape.js",
     "count-sloc": "cd misc && node count.js"
   },

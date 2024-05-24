@@ -38,8 +38,9 @@ app.get("/owners", async (req, res) => {
     const owners = apartments.reduce((acc, apartment) => {
       const { owner, id, name } = apartment;
       if (!acc[owner]) {
-        acc[owner] = { owner, apartments: [] };
+        acc[owner] = { owner, apartments: [], count: 0 };
       }
+      acc[owner].count++;
       acc[owner].apartments.push({ area: apartment.area, name, id });
       return acc;
     }, {});
@@ -54,7 +55,10 @@ app.get("/owners", async (req, res) => {
 app.get("/prices/", async (req, res) => {
   try {
     const prices = await prisma.price.findMany();
-    res.json(prices);
+    res.json({
+      count: prices.length,
+      prices,
+    });
   } catch (error) {
     console.error("Error fetching prices:", error);
     res.status(500).json({ error: "Internal server error" });

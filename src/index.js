@@ -33,7 +33,7 @@ app.get("/owners", async (req, res) => {
         name: true,
         area: true,
       },
-    })
+    });
 
     const owners = apartments.reduce((acc, apartment) => {
       const { owner, id, name } = apartment;
@@ -47,6 +47,16 @@ app.get("/owners", async (req, res) => {
     res.json(Object.values(owners));
   } catch (error) {
     console.error("Error fetching owners:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+app.get("/prices/", async (req, res) => {
+  try {
+    const prices = await prisma.price.findMany();
+    res.json(prices);
+  } catch (error) {
+    console.error("Error fetching prices:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });

@@ -7,7 +7,15 @@ const urls = require("./quarterraUrls.js");
 const scrapePrices = async () => {
   const date = new Date().toISOString();
 
-  let driver = await new Builder().forBrowser("chrome").build();
+  let options = new chrome.Options();
+  options.addArguments("--headless"); // Run in headless mode
+  options.addArguments("--disable-gpu"); // Disable GPU hardware acceleration
+  options.addArguments("--no-sandbox"); // Bypass OS security model
+  options.addArguments("--disable-dev-shm-usage"); // Overcome limited resource problems
+  let driver = await new Builder()
+    .forBrowser("chrome")
+    .setChromeOptions(options)
+    .build();
   try {
     for (const { url, name, location } of urls.urls) {
       await driver.get(url);

@@ -1,11 +1,20 @@
 const { Builder, By, until } = require("selenium-webdriver");
-const { PrismaClient } = require("@prisma/client");
 const equityUrls = require("./equityUrls.js");
-const prisma = new PrismaClient();
+const chrome = require("selenium-webdriver/chrome");
+const prisma = require("../../../prismaClient.js");
 
 async function getApartmentInfo() {
   const date = new Date().toISOString();
-  let driver = await new Builder().forBrowser("chrome").build();
+  let options = new chrome.Options();
+  options.addArguments("--headless"); // Run in headless mode
+  options.addArguments("--disable-gpu"); // Disable GPU hardware acceleration
+  options.addArguments("--no-sandbox"); // Bypass OS security model
+  options.addArguments("--disable-dev-shm-usage"); // Overcome limited resource problems
+  let driver = await new Builder()
+    .forBrowser("chrome")
+    .setChromeOptions(options)
+    .build();
+
   try {
     for (const urlData of equityUrls.urls) {
       const { name, location } = urlData;

@@ -6,6 +6,8 @@ const prisma = new PrismaClient();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const areasRouter=  require('./routes/areas');
+
 app.get("/", async (req, res) => {
   try {
     const apartments = await prisma.apartment.findMany({
@@ -88,6 +90,8 @@ app.get("/prices/:apartmentName", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+app.use("/areas", areasRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

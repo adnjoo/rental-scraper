@@ -14,7 +14,8 @@ CREATE TABLE "Apartment" (
 CREATE TABLE "Price" (
     "id" SERIAL NOT NULL,
     "date" DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "oneBedroom" TEXT NOT NULL,
+    "studio" TEXT,
+    "oneBedroom" TEXT,
     "twoBedroom" TEXT,
     "apartmentId" TEXT NOT NULL,
 

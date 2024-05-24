@@ -16,10 +16,11 @@ const scrapePrices = async () => {
       const $ = cheerio.load(html);
 
       // Selectors for pricing elements
+      const studioPrice = $("#pricing-studio-price").text().trim() || "";
       const oneBedroomPrice =
-        $("#pricing-1-bedroom-price").text().trim() || "N/A";
+        $("#pricing-1-bedroom-price").text().trim() || "";
       const twoBedroomPrice =
-        $("#pricing-2-bedroom-price").text().trim() || "N/A";
+        $("#pricing-2-bedroom-price").text().trim() || "";
 
       // Insert apartment if it doesn't exist
       let apartment = await prisma.apartment.upsert({
@@ -34,7 +35,7 @@ const scrapePrices = async () => {
         },
       });
 
-      let price = await prisma.price.findFirst({
+      const price = await prisma.price.findFirst({
         where: { apartment: { name }, date },
       });
 
@@ -42,6 +43,7 @@ const scrapePrices = async () => {
         // Insert price
         await prisma.price.create({
           data: {
+            studio: studioPrice,
             oneBedroom: oneBedroomPrice,
             twoBedroom: twoBedroomPrice,
             apartment: { connect: { name: apartment.name } },
@@ -52,7 +54,7 @@ const scrapePrices = async () => {
       }
 
       console.log(
-        `Scraped ${name} - 1 Bedroom Price: ${oneBedroomPrice}, 2 Bedroom Price: ${twoBedroomPrice}`
+        `Scraped ${name} - Studio Price: ${studioPrice}, - 1 Bedroom Price: ${oneBedroomPrice}, 2 Bedroom Price: ${twoBedroomPrice}`
       );
     } catch (error) {
       console.error(`Error fetching or parsing the URL for ${name}: ${error}`);

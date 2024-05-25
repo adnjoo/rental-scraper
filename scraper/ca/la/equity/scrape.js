@@ -1,7 +1,8 @@
+const { PrismaClient } = require("@prisma/client");
 const { Builder, By, until } = require("selenium-webdriver");
-const equityUrls = require("./equityUrls.js");
 const chrome = require("selenium-webdriver/chrome");
-const prisma = require("../../../prismaClient.js");
+const equityUrls = require("./equityUrls.js");
+const prisma = new PrismaClient();
 
 async function getApartmentInfo() {
   const date = new Date().toISOString();

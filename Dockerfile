@@ -15,6 +15,9 @@ COPY package*.json ./
 # Install Node.js dependencies
 RUN npm install
 
+# Prisma
+RUN npx prisma generate
+
 # Copy project files
 COPY . .
 

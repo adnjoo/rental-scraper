@@ -1,7 +1,7 @@
 # Fails to build - https://github.com/adnjoo/tern/issues/16
 
 # Use the official Node.js image.
-FROM node:18.20.2
+FROM node:18.17.0-alpine
 
 # Install necessary dependencies for Chrome
 RUN apk add --no-cache chromium chromium-chromedriver
